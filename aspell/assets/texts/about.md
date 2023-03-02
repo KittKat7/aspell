@@ -11,7 +11,7 @@ Avery is a college student at Appalachian State University studying for a major 
 
 ## **How is this project done?**
 
-This is an opensource project, programmed in the flutter framework (using dart as its language). The reason for flutter was to write the source code only once, and have it be able to run on most common devices, IE: Windows, Linux, MacOS, Android, IOS, and Web.
+This is an opensource project, go check out the code! (https://github.com/KittKat7/ASpeLl). This app is programmed in the flutter framework (using dart as its language). The reason for flutter was to write the source code only once, and have it be able to run on most common devices, IE: Windows, Linux, MacOS, Android, IOS, and Web.
 
 ## **Original Project Contributor**
 
