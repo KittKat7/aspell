@@ -1,2 +1,2 @@
 # ASpeLl
-An opensource Americal Sign Language spelling assistance app.
+An opensource American Sign Language spelling assistance app.
