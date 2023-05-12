@@ -66,34 +66,43 @@ class _HomePageState extends State<HomePage> {
     var appBar = AppBar(
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
+      
+      // adding the title, also...
+      // allow access to a secret cyan color, because I like cyan - kitt
       title: GestureDetector(
-        onTap: () { /*setColor(context, Colors.cyan); setMode(context, Brightness.dark);*/ },
+        onTap: () { Provider.of<ThemeModel>(context,listen: false).setColorCyan(); saveOptions(); },
         child: Text(widget.title)
       )
     );
+    // header text
     const headerTxt = Text(
       "ASpeLl",
       textScaleFactor: 5,
     );
+    // spelling page button
     var spellBtn = ElevatedButton(
       onPressed: () {
         Navigator.pushNamed(context, '/spell');
       },
       child: const Text("Start Spelling"),
     );
+    // options page button
     var optionsBtn = ElevatedButton(
       onPressed: () {
         Navigator.pushNamed(context, '/options');
       },
       child: const Text("App Settings"),
     );
+    // about page button
     var aboutBtn = ElevatedButton(
       onPressed: () {
         Navigator.pushNamed(context, '/about');
       },
       child: const Text("About $title"),
     );
+    // spacer object
     var sideSpacer = const Expanded(flex: 0, child: SizedBox());
+    // display the buttons
     var column = Column(children: <Widget>[
       Row(children: <Widget>[
         sideSpacer,
@@ -114,6 +123,7 @@ class _HomePageState extends State<HomePage> {
       ])
     ]);
 
+    // return the page display
     return Scaffold(
       appBar: appBar,
       body: PaddedScroll(

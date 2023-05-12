@@ -1,4 +1,4 @@
-package com.example.aspell
+package xyz.kittkat.aspell
 
 import io.flutter.embedding.android.FlutterActivity
 

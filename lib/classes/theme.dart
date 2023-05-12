@@ -7,7 +7,7 @@ import 'package:aspell/options.dart';
 
 MaterialColor defColor = Colors.amber;
 List<MaterialColor> themeColorList = 
- [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple];
+ [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.purple, Colors.cyan];
 Brightness mode = Brightness.light;
 
 
@@ -87,13 +87,25 @@ class ThemeModel with ChangeNotifier{
     return notifyListeners();
   } // end setColor
 
+  setColorCyan()
+  {
+    themeColor = Colors.cyan;
+    currentTheme = ThemeData(
+      primarySwatch: themeColor,
+      brightness: mode,
+    );
+    return notifyListeners();
+  } // end setColor
+
   cycleColor()
   {
     if (!themeColorList.contains(themeColor)) {
       setColor(themeColorList[0]);
+      int index = 0;
+    } else {
+      int index = themeColorList.indexOf(themeColor) + 1;
+      setColor(themeColorList[index >= (themeColorList.length - 1) ? 0 : index]);
     }
-    int index = themeColorList.indexOf(themeColor) + 1;
-    setColor(themeColorList[index >= themeColorList.length ? 0 : index]);
   } // end cycleColor
 
   /*
