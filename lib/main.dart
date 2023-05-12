@@ -66,8 +66,10 @@ class _HomePageState extends State<HomePage> {
     var appBar = AppBar(
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
+
+      // title to app bar, also secret cyan color button
       title: GestureDetector(
-        onTap: () { /*setColor(context, Colors.cyan); setMode(context, Brightness.dark);*/ },
+        onTap: () { Provider.of<ThemeModel>(context,listen: false).setColorCyan(); saveOptions(); },
         child: Text(widget.title)
       )
     );
