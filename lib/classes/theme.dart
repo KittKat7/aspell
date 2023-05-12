@@ -101,9 +101,13 @@ class ThemeModel with ChangeNotifier{
   {
     if (!themeColorList.contains(themeColor)) {
       setColor(themeColorList[0]);
+      int index = 0;
+    } else {
+      int index = themeColorList.indexOf(themeColor) + 1;
+      setColor(themeColorList[index >= (themeColorList.length - 1) ? 0 : index]);
     }
     int index = themeColorList.indexOf(themeColor) + 1;
-    setColor(themeColorList[index >= (themeColorList.length - 1) ? 0 : index]);
+    setColor(themeColorList[index >= themeColorList.length ? 0 : index]);
   } // end cycleColor
 
   /*
