@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:aspell/options.dart';
 import 'package:aspell/helpers_gui.dart';
 import 'package:aspell/classes/widgets.dart';
+import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 
 int counter = 0;
 double signSpeed = 1;
@@ -26,7 +27,6 @@ class _SpellPageState extends State<SpellPage> {
   final TextEditingController _textController = TextEditingController();
   SignBox signBox = const SignBox(image: null);
   String word = "";
-  
 
   int _index = 0;
   int imageID = 0;
@@ -36,30 +36,32 @@ class _SpellPageState extends State<SpellPage> {
     _stopTimer();
     _index = 0;
     _lastLetter = -1;
-    _timer = Timer.periodic(Duration(milliseconds: (1000/signSpeed).round()), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: (1000 / signSpeed).round()),
+        (timer) {
       setState(() {
-        // if _index is less than the length of the word, display the image for the letter at 
+        // if _index is less than the length of the word, display the image for the letter at
         //  _index in the word
         if (_index < wrd.length) {
           bool offset = false;
-          imageID = wrd.codeUnitAt(_index) == 32 ? -1 : wrd.codeUnitAt(_index) - 97;
+          imageID =
+              wrd.codeUnitAt(_index) == 32 ? -1 : wrd.codeUnitAt(_index) - 97;
           Image? image = imageID == -1 ? null : images[imageID];
-          
+
           if (_lastLetter == imageID && !lastOffset) {
             offset = true;
             lastOffset = true;
           } else {
             lastOffset = false;
           }
-          
+
           setState(() {
             signBox = SignBox(image: image, offset: offset);
           });
-          
+
           _lastLetter = imageID;
           _index++;
         }
-        // else 
+        // else
         else {
           signBox = const SignBox(image: null);
           timer.cancel();
@@ -87,7 +89,6 @@ class _SpellPageState extends State<SpellPage> {
 
   @override
   Widget build(BuildContext context) {
-
     Row inputRow = Row(
       children: <Widget>[
         Flexible(
@@ -159,7 +160,8 @@ class _SpellPageState extends State<SpellPage> {
       ), // end PaddedScroll
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/spell/help');
+          // Navigator.pushNamed(context, '/spell/help');
+          Navigator.push(context, genRoute(const SpellHelpPage(title: title)));
         },
         tooltip: 'Help',
         child: const Icon(Icons.help),
@@ -174,7 +176,7 @@ class _SpellPageState extends State<SpellPage> {
       Center(
         child: Text("Speed: $signSpeed - Score: $score - $correct"),
       ),
-      Slider( 
+      Slider(
         value: signSpeed,
         min: 1,
         max: 7,
@@ -201,7 +203,7 @@ class _SpellPageState extends State<SpellPage> {
     if (text == word && word != wordLast) {
       wordLast = word;
       setState(() {
-        score ++;
+        score++;
         correct = "Correct";
         signBox = SignBox(image: check);
       });
@@ -218,7 +220,6 @@ class _SpellPageState extends State<SpellPage> {
     super.dispose();
     _stopTimer();
   } // end dispose
-  
 } // end _SpellPageState
 
 /* SPELL HELP */

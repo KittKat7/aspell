@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
+// import 'package:provider/provider.dart';
 // custom
 import 'package:aspell/helpers_gui.dart';
 import 'package:aspell/pages/spelling_page.dart';
 import 'package:aspell/pages/options_page.dart';
 import 'package:aspell/classes/widgets.dart';
-import 'package:aspell/classes/theme.dart';
 import 'package:aspell/options.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await loadOptions();
-  runApp(ChangeNotifierProvider<ThemeModel>(
-      create: (context) => ThemeModel(),
-      child: const MyApp(),
-    )
-  );
+  // runApp(ChangeNotifierProvider<ThemeModel>(
+  //     create: (context) => ThemeModel(),
+  //     child: const MyApp(),
+  //   )
+  // );
+  setAppThemeData();
+  runApp(ThemedWidget(
+    widget: const MyApp(),
+    theme: appTheme,
+  ));
 } // end main
 
 /* ========== MYAPP ========== */
@@ -25,19 +30,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Provider.of<ThemeModel>(context).updateTheme();
+    // Provider.of<ThemeModel>(context).updateTheme();
     return MaterialApp(
       title: 'ASpeLl',
       //theme: Provider.of<ThemeModel>(context).currentTheme,
-      theme: Provider.of<ThemeModel>(context).currentTheme,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomePage(title: title),
-        '/about': (context) => const AboutPage(title: "$title - About"),
-        '/spell': (context) => const SpellPage(title: "$title - Spelling"),
-        '/spell/help': (context) => const SpellHelpPage(title: "$title - Spelling: Help"),
-        '/options':(context) => const OptionsPage(title: "$title - Options"),
-      },
+      // theme: Provider.of<ThemeModel>(context).currentTheme,
+      theme: appTheme.getThemeDataLight(context),
+      darkTheme: appTheme.getThemeDataDark(context),
+      themeMode: appTheme.getThemeMode(context),
+      home: const HomePage(title: title),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const HomePage(title: title),
+      //   '/about': (context) => const AboutPage(title: "$title - About"),
+      //   '/spell': (context) => const SpellPage(title: "$title - Spelling"),
+      //   '/spell/help': (context) =>
+      //       const SpellHelpPage(title: "$title - Spelling: Help"),
+      //   '/options': (context) => const OptionsPage(title: "$title - Options"),
+      // },
     );
   } // end build
 } // end MyApp
@@ -52,26 +62,26 @@ class HomePage extends StatefulWidget {
 } // end HomePage
 
 class _HomePageState extends State<HomePage> {
-  
   @override
   void initState() {
     super.initState();
     loadWords();
     loadLetters();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, 
+    // This method is rerun every time setState is called,
     var appBar = AppBar(
-      // Here we take the value from the MyHomePage object that was created by
-      // the App.build method, and use it to set our appbar title.
-      // also add secret cyan color
-      title: GestureDetector(
-        onTap: () { Provider.of<ThemeModel>(context,listen: false).setColorCyan(); saveOptions(); },
-        child: Text(widget.title)
-      )
-    );
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        // also add secret cyan color
+        title: GestureDetector(
+            onTap: () {
+              // Provider.of<ThemeModel>(context, listen: false).setColorCyan();
+              saveOptions();
+            },
+            child: Text(widget.title)));
     // header text
     const headerTxt = Text(
       "ASpeLl",
@@ -80,21 +90,27 @@ class _HomePageState extends State<HomePage> {
     // spelling page button
     var spellBtn = ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/spell');
+        Navigator.push(context, genRoute(const SpellPage(title: title)));
+        // Navigator.pushNamed(context, '/spell');
       },
       child: const Text("Start Spelling"),
     );
     // options page button
     var optionsBtn = ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/options');
+        Navigator.push(context, genRoute(const OptionsPage(title: title)));
+        // Navigator.pushNamed(context, '/options');
       },
       child: const Text("App Settings"),
     );
     // about page button
     var aboutBtn = ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/about');
+        Navigator.push(
+          context,
+          genRoute(const AboutPage(title: title)),
+        );
+        // Navigator.pushNamed(context, '/about');
       },
       child: const Text("About $title"),
     );
@@ -124,9 +140,7 @@ class _HomePageState extends State<HomePage> {
     // return the page display
     return Scaffold(
       appBar: appBar,
-      body: PaddedScroll(
-        context: context,
-        children: <Widget>[
+      body: PaddedScroll(context: context, children: <Widget>[
         headerTxt,
         spacer,
         const Text(""), // sub heading text
@@ -150,14 +164,13 @@ class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: PaddedScroll(
-        context: context,
-        children: children(context),
-      )
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: PaddedScroll(
+          context: context,
+          children: children(context),
+        ));
   }
 
   List<Widget> children(BuildContext context) {
@@ -177,5 +190,3 @@ class _AboutPageState extends State<AboutPage> {
     ];
   } // end build
 } // end _AboutPageState
-
-
