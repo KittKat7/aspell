@@ -16,7 +16,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'  # Change this to your desired Flutter version
+          flutter-version: '3.27.4'  # Change this to your desired Flutter version
 
       - name: Build Flutter web app
         run: flutter build web --web-renderer canvaskit
