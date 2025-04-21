@@ -1,1 +1,0 @@
-The settings here control the GUI settings for the whole app. The **Cycle Color** option cycles through a list of seven colors (red, orange, yellow, green, blue, and purple). The **Toggle Mode** option toggles between light and dark mode. The **Reset** option resets the settings to defaults. All settings options are saved automatically.

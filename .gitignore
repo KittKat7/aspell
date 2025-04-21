@@ -44,3 +44,6 @@ app.*.map.json
 /android/app/release
 
 **/key.properties
+
+
+runapp.sh

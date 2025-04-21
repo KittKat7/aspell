@@ -1,9 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:aspell/options.dart';
 
@@ -35,14 +32,7 @@ Future<void> loadWords() async {
 Size getScreenSize(BuildContext context) {
   Size size = MediaQuery.of(context).size;
 
-  double scaleW = size.width / 10;
   double scaleH = size.height / 16;
-
-  double aspectW = 10;
-  double aspectH = 16;
-
-  double drawW = scaleW / aspectW;
-  double drawH = scaleH / aspectH;
 
   double scale = scaleH * 10;
   paddingW = (size.width - scale) / (size.width) / 2;
@@ -52,49 +42,44 @@ Size getScreenSize(BuildContext context) {
   return size;
 }
 
-double getPaddingW()
-{
+double getPaddingW() {
   return paddedW;
 }
 
-double getPaddingH()
-{
+double getPaddingH() {
   return paddedH;
 }
 
-void setWordList(List<String> words)
-{
+void setWordList(List<String> words) {
   wordList = words;
 }
 
-List<String> getWordList()
-{
+List<String> getWordList() {
   return wordList;
 }
 
-Random getRandom()
-{
+Random getRandom() {
   return _random;
 }
 
-Widget readFileWidget(String path) {
-  return FutureBuilder(
-    future: rootBundle.loadString(path),
-    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-      if (snapshot.hasData) {
-        return MarkdownBody(
-          data: snapshot.data ?? "Could not load file",
-          onTapLink: (text, url, title) {
-            launchUrlString(url!);
-          },
-          //textAlign: TextAlign.justify,
-        );
-      } else {
-        return const CircularProgressIndicator();
-      } // if else
-    },
-  );
-} // end readFile
+// Widget readFileWidget(String path) {
+//   return FutureBuilder(
+//     future: rootBundle.loadString(path),
+//     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+//       if (snapshot.hasData) {
+//         return MarkdownBody(
+//           data: snapshot.data ?? "Could not load file",
+//           onTapLink: (text, url, title) {
+//             launchUrlString(url!);
+//           },
+//           //textAlign: TextAlign.justify,
+//         );
+//       } else {
+//         return const CircularProgressIndicator();
+//       } // if else
+//     },
+//   );
+// } // end readFile
 
 Widget signingBox(BuildContext context) {
   final screenSize = getScreenSize(context);
@@ -109,12 +94,12 @@ Widget signingBox(BuildContext context) {
   );
 }
 
-List<Image> loadLetters(/*BuildContext context*/)
-{
+List<Image> loadLetters(/*BuildContext context*/) {
   List<String> strings = [];
   List<Image> imagess = [];
   for (int i = 0; i < 26; i++) {
-    strings.add("${picturePath}letters/avery_${String.fromCharCode(97 + i)}.png");
+    strings
+        .add("${picturePath}letters/avery_${String.fromCharCode(97 + i)}.png");
     imagess.add(Image.asset(strings[i]));
     //precacheImage(AssetImage(strings[i]), context);
   } // end for
@@ -124,16 +109,15 @@ List<Image> loadLetters(/*BuildContext context*/)
   return imagess;
 } // end getLetters
 
-String toLower(String str)
-{
+String toLower(String str) {
   String uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   String acceptable = "abcdefghijklmnopqrstuvwxyz ";
   String string = "";
   for (int i = 0; i < str.length; i++) {
-    if (uppercase.contains(str.substring(i, i+1))) {
-      string += str.substring(i, i+1).toLowerCase();
-    } else if (acceptable.contains(str.substring(i, i+1))) {
-      string += str.substring(i, i+1);
+    if (uppercase.contains(str.substring(i, i + 1))) {
+      string += str.substring(i, i + 1).toLowerCase();
+    } else if (acceptable.contains(str.substring(i, i + 1))) {
+      string += str.substring(i, i + 1);
     }
   }
   return string;

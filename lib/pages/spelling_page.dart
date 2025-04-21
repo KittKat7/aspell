@@ -17,8 +17,7 @@ String correct = "";
 /* ========== SPELLING ========== */
 /* SPELL */
 class SpellPage extends StatefulWidget {
-  const SpellPage({super.key, required this.title});
-  final String title;
+  const SpellPage({super.key});
   @override
   State<SpellPage> createState() => _SpellPageState();
 } // end SpellPage
@@ -95,8 +94,8 @@ class _SpellPageState extends State<SpellPage> {
           flex: 9,
           child: TextField(
             controller: _textController,
-            decoration: const InputDecoration(
-              hintText: 'Enter some text',
+            decoration: InputDecoration(
+              hintText: getLang('pmtEnterText'),
             ),
           ),
         ),
@@ -108,7 +107,7 @@ class _SpellPageState extends State<SpellPage> {
               _stopTimer();
               _startTimer(toLower(_textController.text));
             },
-            child: const Text('Sign This'),
+            child: Text(getLang('btnSignThis')),
           ),
         ),
       ],
@@ -124,7 +123,7 @@ class _SpellPageState extends State<SpellPage> {
               word = wordList[getRandom().nextInt(wordList.length)];
               _startTimer(word);
             },
-            child: const Text('New Word'),
+            child: Text(getLang('btnNewWord')),
           ),
         ),
         const Expanded(flex: 1, child: SizedBox()),
@@ -134,7 +133,7 @@ class _SpellPageState extends State<SpellPage> {
             onPressed: () {
               _startTimer(word);
             },
-            child: const Text('Sign Again'),
+            child: Text(getLang('btnSignAgain')),
           ),
         ),
         const Expanded(flex: 1, child: SizedBox()),
@@ -144,7 +143,7 @@ class _SpellPageState extends State<SpellPage> {
             onPressed: () {
               confirmBtnPress();
             },
-            child: const Text('Confirm'),
+            child: Text(getLang('btnConfirm')),
           ),
         ),
       ],
@@ -152,7 +151,7 @@ class _SpellPageState extends State<SpellPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(getLang('titleApp')),
       ),
       body: PaddedScroll(
         context: context,
@@ -241,7 +240,8 @@ class _SpellHelpPageState extends State<SpellHelpPage> {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       // main about
-      readFileWidget('assets/texts/spellhelp.md'),
+      // readFileWidget('assets/texts/spellhelp.md'),
+      Marked(getLang('txtSpellingHelp')),
       spacer,
       GoBackButton(context: context),
     ];

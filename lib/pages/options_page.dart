@@ -1,16 +1,16 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 // used to hopefully reload app?
-import 'package:kittkatflutterlibrary/theming/src/theme.dart';
+import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
+import 'package:kittkatflutterlibrary/lang/kkfl_lang.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:aspell/options.dart';
 import 'package:flutter/material.dart';
 // custom
-import 'package:aspell/helpers_gui.dart';
-import 'package:aspell/classes/widgets.dart';
+import '../helpers_gui.dart';
+import '../classes/widgets.dart';
 
 class OptionsPage extends StatefulWidget {
-  final String title;
-  const OptionsPage({super.key, required this.title});
+  const OptionsPage({super.key});
 
   @override
   State<OptionsPage> createState() => _OptionsPageState();
@@ -26,7 +26,7 @@ class _OptionsPageState extends State<OptionsPage> {
           // Provider.of<ThemeModel>(context, listen: false).cycleColor();
           saveOptions();
         },
-        child: const Text("Cycle Color"));
+        child: Text(getLang('btnCycleColor')));
     var toggleModeBtn = ElevatedButton(
         onPressed: () {
           cycleMode();
@@ -34,7 +34,7 @@ class _OptionsPageState extends State<OptionsPage> {
           // Provider.of<ThemeModel>(context, listen: false).toggleMode();
           saveOptions();
         },
-        child: const Text("Toggle Mode"));
+        child: Text(getLang('btnToggleColor')));
     var resetBtn = ElevatedButton(
         onPressed: () {
           resetOptions();
@@ -43,9 +43,9 @@ class _OptionsPageState extends State<OptionsPage> {
           // used with universal html import, refresh app hopefuly?
           html.window.location.reload();
         },
-        child: const Text("Reset"));
+        child: Text(getLang('btnResetSettings')));
     var titleText = Text(
-      widget.title,
+      getLang('titleApp'),
       textAlign: TextAlign.center,
       textScaleFactor: 2,
       style: const TextStyle(fontWeight: FontWeight.bold),
@@ -66,7 +66,8 @@ class _OptionsPageState extends State<OptionsPage> {
     );
     var children = <Widget>[
       titleText,
-      readFileWidget('assets/texts/options.md'),
+      Marked(getLang('txtOptions')),
+      // readFileWidget('assets/texts/options.md'),
       spacer,
       row1,
       spacer,
@@ -76,7 +77,7 @@ class _OptionsPageState extends State<OptionsPage> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(getLang('titleApp')),
       ),
       body: PaddedScroll(
         context: context,
