@@ -17,7 +17,7 @@ Future<void> main(List<String> args) async {
   setAppThemeData();
   runApp(ThemedWidget(
     widget: const DefaultTextStyle(
-      style: TextStyle(fontFamily: "Courier"),
+      style: TextStyle(fontFamily: "Roboto"),
       child: MyApp(),
     ),
     theme: appTheme,

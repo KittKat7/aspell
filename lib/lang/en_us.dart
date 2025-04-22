@@ -64,12 +64,9 @@ This is an open-source project, go check out the code! You can check out the sou
 ### **Avery:**
 \- Project Leader; Initial Designer; Main Developer; Sign Contributor;
 
+**Website:** (https://kittkat.xyz)
+
 App State University; Avery is the creator of this project. Avery loves cats and enjoys programming and playing video games and learning new things. They often spend their free time working on some programming project or playing video games with their friends.
-
-### **Person B:**
-\- Has done stuff; Definitely not just a filler; Bio DEFINITELY NOT written by ChatGPT;
-
-Person B is a multi-talented individual with a background in business, technology, and the arts. They have launched several successful startups and are known for their work in AI, earning recognition as a thought leader. Person B enjoys traveling, hiking, and playing the piano in their free time.
 
 """
 };

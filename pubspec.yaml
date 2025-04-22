@@ -72,6 +72,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/
     - assets/texts/
     - assets/pictures/
     - assets/pictures/letters/averyb/
@@ -100,8 +101,8 @@ flutter:
   #         weight: 700
   #
   fonts:
-    - family: Courier
+    - family: Roboto
       fonts:
-        - asset: assets/courier-prime/CourierPrime-Regular.ttf
+        - asset: assets/roboto-mono/RobotoMono-VariableFont_wght.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

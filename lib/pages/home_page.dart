@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
         title: GestureDetector(
             onTap: () {
               // Provider.of<ThemeModel>(context, listen: false).setColorCyan();
+              setColorCyan();
               saveOptions();
             },
             child: Text(getLang('titleApp'))));
