@@ -16,7 +16,10 @@ Future<void> main(List<String> args) async {
   // );
   setAppThemeData();
   runApp(ThemedWidget(
-    widget: const MyApp(),
+    widget: const DefaultTextStyle(
+      style: TextStyle(fontFamily: "Courier"),
+      child: MyApp(),
+    ),
     theme: appTheme,
   ));
 } // end main
