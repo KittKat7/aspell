@@ -93,6 +93,7 @@ class _SpellPageState extends State<SpellPage> {
         Flexible(
           flex: 9,
           child: TextField(
+            onSubmitted: (value) => confirmBtnPress(),
             controller: _textController,
             decoration: InputDecoration(
               hintText: getLang('pmtEnterText'),
@@ -103,10 +104,7 @@ class _SpellPageState extends State<SpellPage> {
         Expanded(
           flex: 5,
           child: ElevatedButton(
-            onPressed: () {
-              _stopTimer();
-              _startTimer(toLower(_textController.text));
-            },
+            onPressed: () => signThisBtnPress(),
             child: Text(getLang('btnSignThis')),
           ),
         ),
@@ -118,11 +116,7 @@ class _SpellPageState extends State<SpellPage> {
         Expanded(
           flex: 4,
           child: ElevatedButton(
-            onPressed: () {
-              _textController.text = "";
-              word = wordList[getRandom().nextInt(wordList.length)];
-              _startTimer(word);
-            },
+            onPressed: () => newWordBtnPress(),
             child: Text(getLang('btnNewWord')),
           ),
         ),
@@ -130,9 +124,7 @@ class _SpellPageState extends State<SpellPage> {
         Expanded(
           flex: 4,
           child: ElevatedButton(
-            onPressed: () {
-              _startTimer(word);
-            },
+            onPressed: () => signAgainBtnPress(),
             child: Text(getLang('btnSignAgain')),
           ),
         ),
@@ -140,9 +132,7 @@ class _SpellPageState extends State<SpellPage> {
         Expanded(
           flex: 5,
           child: ElevatedButton(
-            onPressed: () {
-              confirmBtnPress();
-            },
+            onPressed: () => confirmBtnPress(),
             child: Text(getLang('btnConfirm')),
           ),
         ),
@@ -158,14 +148,28 @@ class _SpellPageState extends State<SpellPage> {
         children: btnPanel(inputRow, btnRow, context),
       ), // end PaddedScroll
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.pushNamed(context, '/spell/help');
-          Navigator.push(context, genRoute(const SpellHelpPage(title: title)));
-        },
+        onPressed: () => helpBtnPress(context),
         tooltip: 'Help',
         child: const Icon(Icons.help),
       ),
     );
+  }
+
+  void helpBtnPress(BuildContext context) {
+    Navigator.push(context, genRoute(const SpellHelpPage(title: title)));
+  }
+
+  void signAgainBtnPress() => _startTimer(word);
+
+  void newWordBtnPress() {
+    _textController.text = "";
+    word = wordList[getRandom().nextInt(wordList.length)];
+    _startTimer(word);
+  }
+
+  void signThisBtnPress() {
+    _stopTimer();
+    _startTimer(toLower(_textController.text));
   }
 
   List<Widget> btnPanel(Row inputRow, Row btnRow, BuildContext context) {
