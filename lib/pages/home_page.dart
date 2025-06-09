@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     // header text
     Text headerTxt = Text(
       getLang('titleApp'),
-      textScaleFactor: 5,
+      textScaler: TextScaler.linear(5),
     );
     // spelling page button
     var spellBtn = ElevatedButton(
