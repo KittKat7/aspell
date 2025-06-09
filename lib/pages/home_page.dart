@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       textScaler: TextScaler.linear(5),
     );
     // spelling page button
-    var spellBtn = ElevatedButton(
+    var spellBtn = customButton(
       onPressed: () {
         Navigator.push(context, genRoute(const SpellPage()));
         // Navigator.pushNamed(context, '/spell');
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       child: Text(getLang('btnStart')),
     );
     // options page button
-    var optionsBtn = ElevatedButton(
+    var optionsBtn = customButton(
       onPressed: () {
         Navigator.push(context, genRoute(const OptionsPage()));
         // Navigator.pushNamed(context, '/options');
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       child: Text(getLang('btnSettings')),
     );
     // about page button
-    var aboutBtn = ElevatedButton(
+    var aboutBtn = customButton(
       onPressed: () {
         Navigator.push(
           context,

@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 // custom
 import 'package:aspell/helpers_gui.dart';
 
-
 class SignBox extends StatefulWidget {
   final Image? image;
   final bool offset;
   const SignBox({super.key, required this.image, this.offset = false});
-  
+
   @override
   _SignBoxState createState() => _SignBoxState();
 }
 
 class _SignBoxState extends State<SignBox> {
-    
   @override
   void initState() {
     super.initState();
@@ -26,10 +24,13 @@ class _SignBoxState extends State<SignBox> {
     double width = (screenSize.width * (1 - paddingW * 2));
     double height = ((screenSize.width * (1 - paddingW * 2)) * 3 / 4);
     //_imagePath = widget.initialImagePath;
-    
-    var child = image == null ? const SizedBox()
-      : (height - 4 >= 1024 ? Transform.scale(scale: (height - 4) / (1024), child: image) : image);
-    
+
+    var child = image == null
+        ? const SizedBox()
+        : (height - 4 >= 1024
+            ? Transform.scale(scale: (height - 4) / (1024), child: image)
+            : image);
+
     Row box = Row(
       children: <Widget>[
         Expanded(flex: 6, child: child),
@@ -42,27 +43,24 @@ class _SignBoxState extends State<SignBox> {
       width: 2.0,
     );
     return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        border: border,
-      ),
-      child: box
-    );
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          border: border,
+        ),
+        child: box);
   }
 }
 
-class GoBackButton extends StatelessWidget
-{
+class GoBackButton extends StatelessWidget {
   // FIELDS
   final BuildContext context;
   final Function? exec;
   const GoBackButton({super.key, required this.context, this.exec});
-  
+
   @override
-  Widget build(BuildContext context)
-  {
-    return ElevatedButton(
+  Widget build(BuildContext context) {
+    return customButton(
       onPressed: () {
         Navigator.pop(context);
         exec == null ? exec : null;
@@ -72,17 +70,16 @@ class GoBackButton extends StatelessWidget
   } // end build
 } // end GoBackButton
 
-class PaddedScroll extends StatelessWidget
-{
+class PaddedScroll extends StatelessWidget {
   // FIELDS
   final BuildContext context;
   final List<Widget> children;
-  
-  const PaddedScroll({super.key, required this.context, required this.children});
+
+  const PaddedScroll(
+      {super.key, required this.context, required this.children});
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     final screenSize = getScreenSize(context);
     var edgeInsets = EdgeInsets.symmetric(
       horizontal: screenSize.width * paddingW,
@@ -96,10 +93,34 @@ class PaddedScroll extends StatelessWidget
       child: column,
     );
     return Center(
-      child: SingleChildScrollView(
-        child: padding
-      ),
+      child: SingleChildScrollView(child: padding),
     );
   } // end buidl
 } // end PaddedScroll
 
+Widget customButton({required Widget child, required Function() onPressed}) {
+  return Padding(
+    padding: EdgeInsets.fromLTRB(1, 0, 1, 0),
+    child: ElevatedButton(
+      style: ButtonStyle(
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+            side: BorderSide(color: Colors.transparent),
+          ),
+        ),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
+      ),
+      onPressed: onPressed,
+      child: child,
+    ),
+  );
+}
+
+Widget verticalPadding({required Widget child}) {
+  double pad = 15;
+  return Padding(
+    padding: EdgeInsets.fromLTRB(0, pad, 0, 0),
+    child: child,
+  );
+}

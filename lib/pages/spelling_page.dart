@@ -88,10 +88,10 @@ class _SpellPageState extends State<SpellPage> {
 
   @override
   Widget build(BuildContext context) {
-    Row inputRow = Row(
+    Widget inputRow = Row(
       children: <Widget>[
         Flexible(
-          flex: 9,
+          flex: 2,
           child: TextField(
             onSubmitted: (value) => confirmBtnPress(),
             controller: _textController,
@@ -100,10 +100,38 @@ class _SpellPageState extends State<SpellPage> {
             ),
           ),
         ),
-        const Expanded(flex: 1, child: SizedBox()),
         Expanded(
-          flex: 5,
-          child: ElevatedButton(
+          flex: 1,
+          child: customButton(
+            onPressed: () => signThisBtnPress(),
+            child: Text(
+              getLang('btnSignThis'),
+              softWrap: false,
+            ),
+          ),
+        ),
+      ],
+    );
+
+    Widget btnRow = Row(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: customButton(
+            onPressed: () => newWordBtnPress(),
+            child: Text(getLang('btnNewWord')),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: customButton(
+            onPressed: () => signAgainBtnPress(),
+            child: Text(getLang('btnSignAgain')),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: customButton(
             onPressed: () => confirmBtnPress(),
             child: Text(getLang('btnConfirm')),
           ),
@@ -111,35 +139,7 @@ class _SpellPageState extends State<SpellPage> {
       ],
     );
 
-    Row btnRow = Row(
-      children: <Widget>[
-        Expanded(
-          flex: 4,
-          child: ElevatedButton(
-            onPressed: () => newWordBtnPress(),
-            child: Text(getLang('btnNewWord')),
-          ),
-        ),
-        const Expanded(flex: 1, child: SizedBox()),
-        Expanded(
-          flex: 4,
-          child: ElevatedButton(
-            onPressed: () => signAgainBtnPress(),
-            child: Text(getLang('btnSignAgain')),
-          ),
-        ),
-        const Expanded(flex: 1, child: SizedBox()),
-        Expanded(
-          flex: 5,
-          child: ElevatedButton(
-            onPressed: () => signThisBtnPress(),
-            child: Text(getLang('btnSignThis')),
-          ),
-        ),
-      ],
-    );
-
-    Row changeSpeedRow = Row(
+    Widget changeSpeedRow = Row(
       children: [
         Expanded(
           flex: 2,
@@ -197,24 +197,20 @@ class _SpellPageState extends State<SpellPage> {
     _startTimer(toLower(_textController.text));
   }
 
-  List<Widget> btnPanel(
-      Row inputRow, Row btnRow, Row changeSpeedRow, BuildContext context) {
+  List<Widget> btnPanel(Widget inputRow, Widget btnRow, Widget changeSpeedRow,
+      BuildContext context) {
     return <Widget>[
-      signBox,
-      spacer,
-      Center(
+      verticalPadding(child: signBox),
+      verticalPadding(
+          child: Center(
         child: Text(getLang('pmtSigningInfoLine', [
           correct == "Correct" ? word : getLang("strUnknown"),
           score,
         ])),
-      ),
-      spacer,
-      inputRow,
-      spacer,
-      btnRow,
-      spacer,
-      changeSpeedRow,
-      spacer,
+      )),
+      verticalPadding(child: inputRow),
+      verticalPadding(child: btnRow),
+      verticalPadding(child: changeSpeedRow),
       GoBackButton(context: context, exec: _stopTimer),
     ];
   } // end build
