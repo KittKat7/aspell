@@ -104,8 +104,8 @@ class _SpellPageState extends State<SpellPage> {
         Expanded(
           flex: 5,
           child: ElevatedButton(
-            onPressed: () => signThisBtnPress(),
-            child: Text(getLang('btnSignThis')),
+            onPressed: () => confirmBtnPress(),
+            child: Text(getLang('btnConfirm')),
           ),
         ),
       ],
@@ -132,10 +132,34 @@ class _SpellPageState extends State<SpellPage> {
         Expanded(
           flex: 5,
           child: ElevatedButton(
-            onPressed: () => confirmBtnPress(),
-            child: Text(getLang('btnConfirm')),
+            onPressed: () => signThisBtnPress(),
+            child: Text(getLang('btnSignThis')),
           ),
         ),
+      ],
+    );
+
+    Row changeSpeedRow = Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: Slider(
+            value: signSpeed,
+            min: 1,
+            max: 7,
+            divisions: 12,
+            //label: "Signs / Second: ${signSpeed.toString()}",
+            onChanged: (double value) {
+              setState(() {
+                signSpeed = value;
+              });
+            },
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Center(child: Text(getLang('pmtSigningSpeed', [signSpeed]))),
+        )
       ],
     );
 
@@ -145,7 +169,7 @@ class _SpellPageState extends State<SpellPage> {
       ),
       body: PaddedScroll(
         context: context,
-        children: btnPanel(inputRow, btnRow, context),
+        children: btnPanel(inputRow, btnRow, changeSpeedRow, context),
       ), // end PaddedScroll
       floatingActionButton: FloatingActionButton(
         onPressed: () => helpBtnPress(context),
@@ -164,6 +188,7 @@ class _SpellPageState extends State<SpellPage> {
   void newWordBtnPress() {
     _textController.text = "";
     word = wordList[getRandom().nextInt(wordList.length)];
+    correct = "";
     _startTimer(word);
   }
 
@@ -172,28 +197,23 @@ class _SpellPageState extends State<SpellPage> {
     _startTimer(toLower(_textController.text));
   }
 
-  List<Widget> btnPanel(Row inputRow, Row btnRow, BuildContext context) {
+  List<Widget> btnPanel(
+      Row inputRow, Row btnRow, Row changeSpeedRow, BuildContext context) {
     return <Widget>[
       signBox,
       spacer,
       Center(
-        child: Text("Speed: $signSpeed - Score: $score - $correct"),
+        child: Text(getLang('pmtSigningInfoLine', [
+          correct == "Correct" ? word : getLang("strUnknown"),
+          score,
+        ])),
       ),
-      Slider(
-        value: signSpeed,
-        min: 1,
-        max: 7,
-        divisions: 12,
-        //label: "Signs / Second: ${signSpeed.toString()}",
-        onChanged: (double value) {
-          setState(() {
-            signSpeed = value;
-          });
-        },
-      ),
+      spacer,
       inputRow,
       spacer,
       btnRow,
+      spacer,
+      changeSpeedRow,
       spacer,
       GoBackButton(context: context, exec: _stopTimer),
     ];
@@ -240,7 +260,7 @@ class _SpellHelpPageState extends State<SpellHelpPage> {
       Text(
         widget.title,
         textAlign: TextAlign.center,
-        textScaleFactor: 2,
+        textScaler: TextScaler.linear(2),
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       // main about

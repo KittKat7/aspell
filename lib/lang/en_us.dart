@@ -10,11 +10,15 @@ const Map<String, String> en_us = {
   "btnToggleColor": "Toggle Color",
   "btnResetSettings": "Reset",
   "btnSignThis": "Sign This",
-  "btnNewWord": "New Word",
-  "btnSignAgain": "Sign Again",
+  "btnNewWord": "New",
+  "btnSignAgain": "Again",
   "btnConfirm": "Confirm",
 
   "pmtEnterText": "Enter Text",
+  "pmtSigningSpeed": "Speed \${0}",
+  "pmtSigningInfoLine": "Word: \${0} - Score: \${1}",
+
+  "strUnknown": "UNKNOWN",
 
   "txtOptions": """
 The settings here control the GUI settings for the whole app. The **Cycle Color** option cycles through a list of seven colors (red, orange, yellow, green, blue, and purple). The **Toggle Mode** option toggles between light and dark mode. The **Reset** option resets the settings to defaults. All settings options are saved automatically.
