@@ -109,7 +109,7 @@ Widget customButton({required Widget child, required Function() onPressed}) {
             side: BorderSide(color: Colors.transparent),
           ),
         ),
-        padding: WidgetStateProperty.all(EdgeInsets.zero),
+        padding: WidgetStateProperty.all(EdgeInsets.all(8.0)),
       ),
       onPressed: onPressed,
       child: child,
