@@ -194,7 +194,7 @@ class _SpellPageState extends State<SpellPage> {
         Expanded(
           flex: 1,
           child: Center(
-              child: Text(getLang('pmtSigningSpeed',
+              child: Text(getLang('pmtWordLength',
                   [wordLength < 7 ? wordLength : '$wordLength+']))),
         )
       ],
@@ -251,7 +251,8 @@ class _SpellPageState extends State<SpellPage> {
   void confirmBtnPress() {
     _stopTimer();
     String text = _textController.text;
-    text = toLower(text);
+    // TODO Remove toLower method
+    text = toLower(text).toUpperCase();
     if (text == word) {
       setState(() {
         // Prevent infinite points from the same word

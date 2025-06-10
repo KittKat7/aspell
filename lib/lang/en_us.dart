@@ -15,7 +15,8 @@ const Map<String, String> en_us = {
   "btnConfirm": "Confirm",
 
   "pmtEnterText": "Enter Text",
-  "pmtSigningSpeed": "Speed \${0}",
+  "pmtSigningSpeed": "Speed: \${0}",
+  "pmtWordLength": "Length: \${0}",
   "pmtSigningInfoLine": "Word: \${0} - Score: \${1}",
 
   "strUnknown": "UNKNOWN",
