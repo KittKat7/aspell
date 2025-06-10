@@ -27,7 +27,7 @@ class _AboutPageState extends State<AboutPage> {
       Text(
         getLang('titleApp'),
         textAlign: TextAlign.center,
-        textScaleFactor: 2,
+        textScaler: TextScaler.linear(2),
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       // main about
