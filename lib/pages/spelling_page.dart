@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:aspell/classes/wordlist.dart';
 import 'package:flutter/material.dart';
 // custom
 import 'package:aspell/options.dart';
@@ -8,6 +9,7 @@ import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 
 int counter = 0;
 double signSpeed = 1;
+int wordLength = 5;
 int score = 0;
 String wordLast = "";
 int _lastLetter = -1;
@@ -26,6 +28,7 @@ class _SpellPageState extends State<SpellPage> {
   final TextEditingController _textController = TextEditingController();
   SignBox signBox = const SignBox(image: null);
   String word = "";
+  List<String> wordList = WordList.getWordList(maxLength: wordLength);
 
   int _index = 0;
   int imageID = 0;
@@ -43,7 +46,7 @@ class _SpellPageState extends State<SpellPage> {
         if (_index < wrd.length) {
           bool offset = false;
           imageID =
-              wrd.codeUnitAt(_index) == 32 ? -1 : wrd.codeUnitAt(_index) - 97;
+              wrd.codeUnitAt(_index) == 32 ? -1 : wrd.codeUnitAt(_index) - 65;
           Image? image = imageID == -1 ? null : images[imageID];
 
           if (_lastLetter == imageID && !lastOffset) {
@@ -75,6 +78,12 @@ class _SpellPageState extends State<SpellPage> {
       _timer = null;
     }
   } // end _stopTimer
+
+  void generateNewWord() {
+    word = wordList[getRandom().nextInt(wordList.length)]
+        .toUpperCase()
+        .replaceAll(RegExp(r'[^a-zA-Z]'), '');
+  }
 
   @override
   void didChangeDependencies() {
@@ -163,14 +172,56 @@ class _SpellPageState extends State<SpellPage> {
       ],
     );
 
+    Widget changeLengthRow = Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: Slider(
+            value: wordLength.toDouble(),
+            min: 1,
+            max: 7,
+            divisions: 6,
+            onChanged: (double value) {
+              setState(() {
+                int valueInt = value.toInt();
+                wordLength = valueInt;
+                wordList = WordList.getWordList(
+                    maxLength: wordLength < 7 ? wordLength : 0);
+              });
+            },
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Center(
+              child: Text(getLang('pmtSigningSpeed',
+                  [wordLength < 7 ? wordLength : '$wordLength+']))),
+        )
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(getLang('titleApp')),
       ),
       body: PaddedScroll(
         context: context,
-        children: btnPanel(inputRow, btnRow, changeSpeedRow, context),
-      ), // end PaddedScroll
+        children: [
+          verticalPadding(child: signBox),
+          verticalPadding(
+              child: Center(
+            child: Text(getLang('pmtSigningInfoLine', [
+              correct == "Correct" ? word : getLang("strUnknown"),
+              score,
+            ])),
+          )),
+          verticalPadding(child: inputRow),
+          verticalPadding(child: btnRow),
+          verticalPadding(child: changeSpeedRow),
+          verticalPadding(child: changeLengthRow),
+          GoBackButton(context: context, exec: _stopTimer),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => helpBtnPress(context),
         tooltip: 'Help',
@@ -187,7 +238,7 @@ class _SpellPageState extends State<SpellPage> {
 
   void newWordBtnPress() {
     _textController.text = "";
-    word = wordList[getRandom().nextInt(wordList.length)];
+    generateNewWord();
     correct = "";
     _startTimer(word);
   }
@@ -197,32 +248,15 @@ class _SpellPageState extends State<SpellPage> {
     _startTimer(toLower(_textController.text));
   }
 
-  List<Widget> btnPanel(Widget inputRow, Widget btnRow, Widget changeSpeedRow,
-      BuildContext context) {
-    return <Widget>[
-      verticalPadding(child: signBox),
-      verticalPadding(
-          child: Center(
-        child: Text(getLang('pmtSigningInfoLine', [
-          correct == "Correct" ? word : getLang("strUnknown"),
-          score,
-        ])),
-      )),
-      verticalPadding(child: inputRow),
-      verticalPadding(child: btnRow),
-      verticalPadding(child: changeSpeedRow),
-      GoBackButton(context: context, exec: _stopTimer),
-    ];
-  } // end build
-
   void confirmBtnPress() {
     _stopTimer();
     String text = _textController.text;
     text = toLower(text);
-    if (text == word && word != wordLast) {
-      wordLast = word;
+    if (text == word) {
       setState(() {
-        score++;
+        // Prevent infinite points from the same word
+        if (word != wordLast) score++;
+        wordLast = word;
         correct = "Correct";
         signBox = SignBox(image: check);
       });

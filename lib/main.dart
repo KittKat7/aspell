@@ -1,3 +1,4 @@
+import 'package:aspell/classes/wordlist.dart';
 import 'package:aspell/lang/en_us.dart';
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
@@ -9,6 +10,7 @@ Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   setLangMap(en_us);
   await loadOptions();
+  await WordList.loadWords();
   // runApp(ChangeNotifierProvider<ThemeModel>(
   //     create: (context) => ThemeModel(),
   //     child: const MyApp(),

@@ -15,7 +15,6 @@ double scale = 1; // not sure
 
 var rBundle = rootBundle;
 
-List<String> wordList = [];
 List<Image> images = [];
 Image? check;
 Image? cross;
@@ -23,11 +22,6 @@ Image? cross;
 Random _random = Random();
 
 bool isDark = true;
-
-Future<void> loadWords() async {
-  String text = await rootBundle.loadString('assets/texts/words.txt');
-  wordList = text.split(" ");
-}
 
 Size getScreenSize(BuildContext context) {
   Size size = MediaQuery.of(context).size;
@@ -48,14 +42,6 @@ double getPaddingW() {
 
 double getPaddingH() {
   return paddedH;
-}
-
-void setWordList(List<String> words) {
-  wordList = words;
-}
-
-List<String> getWordList() {
-  return wordList;
 }
 
 Random getRandom() {
