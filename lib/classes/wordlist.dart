@@ -14,4 +14,8 @@ class WordList {
         if (w.length <= maxLength || maxLength <= 0) w
     ];
   }
+
+  static String validateWord(String str) {
+    return str.replaceAll(RegExp(r'[^a-zA-Z]'), '').toUpperCase();
+  }
 }

@@ -94,17 +94,3 @@ List<Image> loadLetters(/*BuildContext context*/) {
   cross = Image.asset("assets/pictures/cross.png");
   return imagess;
 } // end getLetters
-
-String toLower(String str) {
-  String uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  String acceptable = "abcdefghijklmnopqrstuvwxyz ";
-  String string = "";
-  for (int i = 0; i < str.length; i++) {
-    if (uppercase.contains(str.substring(i, i + 1))) {
-      string += str.substring(i, i + 1).toLowerCase();
-    } else if (acceptable.contains(str.substring(i, i + 1))) {
-      string += str.substring(i, i + 1);
-    }
-  }
-  return string;
-} // end toLower

@@ -80,9 +80,8 @@ class _SpellPageState extends State<SpellPage> {
   } // end _stopTimer
 
   void generateNewWord() {
-    word = wordList[getRandom().nextInt(wordList.length)]
-        .toUpperCase()
-        .replaceAll(RegExp(r'[^a-zA-Z]'), '');
+    word =
+        WordList.validateWord(wordList[getRandom().nextInt(wordList.length)]);
   }
 
   @override
@@ -245,14 +244,13 @@ class _SpellPageState extends State<SpellPage> {
 
   void signThisBtnPress() {
     _stopTimer();
-    _startTimer(toLower(_textController.text));
+    _startTimer(WordList.validateWord(_textController.text));
   }
 
   void confirmBtnPress() {
     _stopTimer();
     String text = _textController.text;
-    // TODO Remove toLower method
-    text = toLower(text).toUpperCase();
+    text = WordList.validateWord(text);
     if (text == word) {
       setState(() {
         // Prevent infinite points from the same word
