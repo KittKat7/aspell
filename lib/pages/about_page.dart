@@ -31,7 +31,10 @@ class _AboutPageState extends State<AboutPage> {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       // main about
-      Marked(getLang('txtAbout')),
+      Marked(
+        getLang('txtAbout'),
+        selectable: true,
+      ),
       // spacer
       spacer,
       // back button
