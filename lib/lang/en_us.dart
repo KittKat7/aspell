@@ -1,7 +1,7 @@
 // ignore: constant_identifier_names
 const Map<String, String> en_us = {
   // Title
-  "titleApp": "ASpeLl",
+  "titleApp": "ASPELL",
 
   "btnStart": "Start Spelling",
   "btnSettings": "Settings",

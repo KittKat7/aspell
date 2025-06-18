@@ -35,12 +35,14 @@ class _HomePageState extends State<HomePage> {
               setColorCyan();
               saveOptions();
             },
-            child: Text(getLang('titleApp'))));
+            child: styledTitle()));
     // header text
-    Text headerTxt = Text(
-      getLang('titleApp'),
-      textScaler: TextScaler.linear(5),
-    );
+    // Widget headerTxt = Marked(
+    //   getLang('titleApp'),
+    //   scale: 5,
+    //   // textScaler: TextScaler.linear(5),
+    // );
+    Widget headerTxt = styledTitle(scale: 5);
     // spelling page button
     var spellBtn = customButton(
       onPressed: () {

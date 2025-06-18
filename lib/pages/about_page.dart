@@ -14,7 +14,7 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(getLang('titleApp')),
+          title: styledTitle(),
         ),
         body: PaddedScroll(
           context: context,

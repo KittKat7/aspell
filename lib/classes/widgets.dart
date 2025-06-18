@@ -124,3 +124,20 @@ Widget verticalPadding({required Widget child}) {
     child: child,
   );
 }
+
+Widget styledTitle({double scale = 1}) {
+  TextScaler big = TextScaler.linear(scale);
+  TextScaler small = TextScaler.linear(scale * 0.75);
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Text("A", textScaler: big),
+      Text("S", textScaler: big),
+      Text("P", textScaler: small),
+      Text("E", textScaler: small),
+      Text("L", textScaler: big),
+      Text("L", textScaler: small)
+    ],
+  );
+}

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Provider.of<ThemeModel>(context).updateTheme();
     return MaterialApp(
-      title: getLang("titleApp"),
+      title: getLang('titleApp'),
       theme: appTheme.getThemeDataLight(context),
       darkTheme: appTheme.getThemeDataDark(context),
       themeMode: appTheme.getThemeMode(context),

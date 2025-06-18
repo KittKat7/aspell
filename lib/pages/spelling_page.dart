@@ -201,7 +201,7 @@ class _SpellPageState extends State<SpellPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(getLang('titleApp')),
+        title: styledTitle(),
       ),
       body: PaddedScroll(
         context: context,

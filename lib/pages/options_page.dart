@@ -77,7 +77,7 @@ class _OptionsPageState extends State<OptionsPage> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text(getLang('titleApp')),
+        title: styledTitle(),
       ),
       body: PaddedScroll(
         context: context,
