@@ -110,7 +110,7 @@ class _SpellPageState extends State<SpellPage> {
         ),
         Expanded(
           flex: 1,
-          child: customButton(
+          child: CustomButton(
             onPressed: () => signThisBtnPress(),
             child: Text(
               getLang('btnSignThis'),
@@ -125,21 +125,21 @@ class _SpellPageState extends State<SpellPage> {
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: customButton(
+          child: CustomButton(
             onPressed: () => newWordBtnPress(),
             child: Text(getLang('btnNewWord')),
           ),
         ),
         Expanded(
           flex: 1,
-          child: customButton(
+          child: CustomButton(
             onPressed: () => signAgainBtnPress(),
             child: Text(getLang('btnSignAgain')),
           ),
         ),
         Expanded(
           flex: 1,
-          child: customButton(
+          child: CustomButton(
             onPressed: () => confirmBtnPress(),
             child: Text(getLang('btnConfirm')),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // custom
 import 'package:aspell/helpers_gui.dart';
+import 'package:kittkatflutterlibrary/theming/src/theme.dart';
 
 class SignBox extends StatefulWidget {
   final Image? image;
@@ -60,7 +61,7 @@ class GoBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return customButton(
+    return CustomButton(
       onPressed: () {
         Navigator.pop(context);
         exec == null ? exec : null;
@@ -98,23 +99,36 @@ class PaddedScroll extends StatelessWidget {
   } // end buidl
 } // end PaddedScroll
 
-Widget customButton({required Widget child, required Function() onPressed}) {
-  return Padding(
-    padding: EdgeInsets.fromLTRB(1, 0, 1, 0),
-    child: ElevatedButton(
-      style: ButtonStyle(
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-            side: BorderSide(color: Colors.transparent),
+class CustomButton extends StatelessWidget {
+  final Widget child;
+  final Function() onPressed;
+
+  const CustomButton({super.key, required this.child, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(1, 0, 1, 0),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll(colorScheme(context).primary),
+          foregroundColor:
+              WidgetStatePropertyAll(colorScheme(context).onPrimary),
+          textStyle:
+              WidgetStatePropertyAll(TextStyle(fontWeight: FontWeight.bold)),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+              side: BorderSide(color: Colors.transparent),
+            ),
           ),
+          padding: WidgetStateProperty.all(EdgeInsets.all(8.0)),
         ),
-        padding: WidgetStateProperty.all(EdgeInsets.all(8.0)),
+        onPressed: onPressed,
+        child: child,
       ),
-      onPressed: onPressed,
-      child: child,
-    ),
-  );
+    );
+  }
 }
 
 Widget verticalPadding({required Widget child}) {

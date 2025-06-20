@@ -19,7 +19,7 @@ class OptionsPage extends StatefulWidget {
 class _OptionsPageState extends State<OptionsPage> {
   @override
   Widget build(BuildContext context) {
-    var cycleColorBtn = customButton(
+    var cycleColorBtn = CustomButton(
         onPressed: () {
           cycleColor();
           // appTheme.setColor(Colors.red);
@@ -27,7 +27,7 @@ class _OptionsPageState extends State<OptionsPage> {
           saveOptions();
         },
         child: Text(getLang('btnCycleColor')));
-    var toggleModeBtn = customButton(
+    var toggleModeBtn = CustomButton(
         onPressed: () {
           cycleMode();
           // appTheme.cycleThemeMode();
@@ -35,7 +35,7 @@ class _OptionsPageState extends State<OptionsPage> {
           saveOptions();
         },
         child: Text(getLang('btnToggleColor')));
-    var resetBtn = customButton(
+    var resetBtn = CustomButton(
         onPressed: () {
           resetOptions();
           // Provider.of<ThemeModel>(context, listen: false).toggleMode();

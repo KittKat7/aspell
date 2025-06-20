@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     // );
     Widget headerTxt = styledTitle(scale: 5);
     // spelling page button
-    var spellBtn = customButton(
+    var spellBtn = CustomButton(
       onPressed: () {
         Navigator.push(context, genRoute(const SpellPage()));
         // Navigator.pushNamed(context, '/spell');
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       child: Text(getLang('btnStart')),
     );
     // options page button
-    var optionsBtn = customButton(
+    var optionsBtn = CustomButton(
       onPressed: () {
         Navigator.push(context, genRoute(const OptionsPage()));
         // Navigator.pushNamed(context, '/options');
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
       child: Text(getLang('btnSettings')),
     );
     // about page button
-    var aboutBtn = customButton(
+    var aboutBtn = CustomButton(
       onPressed: () {
         Navigator.push(
           context,
