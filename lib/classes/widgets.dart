@@ -139,6 +139,14 @@ Widget verticalPadding({required Widget child}) {
   );
 }
 
+Widget verticalPaddingColumn({required List<Widget> children}) {
+  return Column(
+    children: [
+      for (Widget w in children) verticalPadding(child: w),
+    ],
+  );
+}
+
 Widget styledTitle({double scale = 1}) {
   TextScaler big = TextScaler.linear(scale);
   TextScaler small = TextScaler.linear(scale * 0.75);

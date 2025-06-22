@@ -3,7 +3,8 @@ const Map<String, String> en_us = {
   // Title
   "titleApp": "ASPELL",
 
-  "btnStart": "Start Spelling",
+  "btnStartPractice": "Start Practice",
+  "btnStartLearning": "Start Learning",
   "btnSettings": "Settings",
   "btnAbout": "About",
   "btnCycleColor": "Cycle Color",

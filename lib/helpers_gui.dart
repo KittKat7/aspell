@@ -6,7 +6,6 @@ import 'package:aspell/options.dart';
 
 /* ========== HELPERS ========== */
 // vars
-const Text spacer = Text("");
 double paddingW = 0.1; // the percent of horiontal padding on each side
 double paddingH = 0.05; // the amount of verticle padding on each side
 double paddedW = 0; // the width of the available screen (excluding padding)

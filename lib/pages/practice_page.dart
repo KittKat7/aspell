@@ -286,17 +286,18 @@ class _SpellHelpPageState extends State<SpellHelpPage> {
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[
-      Text(
-        widget.title,
-        textAlign: TextAlign.center,
-        textScaler: TextScaler.linear(2),
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      // main about
-      // readFileWidget('assets/texts/spellhelp.md'),
-      Marked(getLang('txtSpellingHelp')),
-      spacer,
-      GoBackButton(context: context),
+      verticalPaddingColumn(children: [
+        Text(
+          widget.title,
+          textAlign: TextAlign.center,
+          textScaler: TextScaler.linear(2),
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        // main about
+        // readFileWidget('assets/texts/spellhelp.md'),
+        Marked(getLang('txtSpellingHelp')),
+        GoBackButton(context: context),
+      ])
     ];
     var paddedScroll = PaddedScroll(
       context: context,

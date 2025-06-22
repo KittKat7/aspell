@@ -3,7 +3,7 @@ import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 
 import '../classes/widgets.dart';
 import 'options_page.dart';
-import 'spelling_page.dart';
+import 'practice_page.dart';
 import '../helpers_gui.dart';
 import '../options.dart';
 import 'about_page.dart';
@@ -26,82 +26,73 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called,
     var appBar = AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        // also add secret cyan color
-        title: GestureDetector(
-            onTap: () {
-              // Provider.of<ThemeModel>(context, listen: false).setColorCyan();
-              setColorCyan();
-              saveOptions();
-            },
-            child: styledTitle()));
-    // header text
-    // Widget headerTxt = Marked(
-    //   getLang('titleApp'),
-    //   scale: 5,
-    //   // textScaler: TextScaler.linear(5),
-    // );
+      // Here we take the value from the MyHomePage object that was created by
+      // the App.build method, and use it to set our appbar title.
+      // also add secret cyan color
+      title: GestureDetector(
+        onTap: () {
+          // Provider.of<ThemeModel>(context, listen: false).setColorCyan();
+          setColorCyan();
+          saveOptions();
+        },
+        child: styledTitle(),
+      ),
+    );
+
     Widget headerTxt = styledTitle(scale: 5);
-    // spelling page button
-    var spellBtn = CustomButton(
+    // Practice page button
+    var practiceBtn = CustomButton(
       onPressed: () {
         Navigator.push(context, genRoute(const SpellPage()));
-        // Navigator.pushNamed(context, '/spell');
       },
-      child: Text(getLang('btnStart')),
+      child: Text(getLang('btnStartPractice')),
+    );
+    // Learning page button
+    var learnBtn = CustomButton(
+      onPressed: () {
+        print("TODO"); // TODO
+        // Navigator.push(context, genRoute(const SpellPage()));
+      },
+      child: Text(getLang('btnStartLearning')),
     );
     // options page button
     var optionsBtn = CustomButton(
       onPressed: () {
         Navigator.push(context, genRoute(const OptionsPage()));
-        // Navigator.pushNamed(context, '/options');
       },
       child: Text(getLang('btnSettings')),
     );
     // about page button
     var aboutBtn = CustomButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          genRoute(const AboutPage()),
-        );
-        // Navigator.pushNamed(context, '/about');
+        Navigator.push(context, genRoute(const AboutPage()));
       },
       child: Text(getLang('btnAbout')),
     );
-    // spacer object
-    var sideSpacer = const Expanded(flex: 0, child: SizedBox());
     // display the buttons
-    var column = Column(children: <Widget>[
+    var column = verticalPaddingColumn(children: [
       Row(children: <Widget>[
-        sideSpacer,
-        Expanded(flex: 5, child: spellBtn),
-        sideSpacer,
+        Expanded(flex: 5, child: practiceBtn),
       ]),
-      spacer,
       Row(children: <Widget>[
-        sideSpacer,
+        Expanded(flex: 5, child: learnBtn),
+      ]),
+      Row(children: <Widget>[
         Expanded(flex: 5, child: optionsBtn),
-        sideSpacer,
       ]),
-      spacer,
       Row(children: <Widget>[
-        sideSpacer,
         Expanded(flex: 5, child: aboutBtn),
-        sideSpacer,
-      ])
+      ]),
     ]);
 
     // return the page display
     return Scaffold(
       appBar: appBar,
       body: PaddedScroll(context: context, children: <Widget>[
-        headerTxt,
-        spacer,
-        const Text(""), // sub heading text
-        spacer,
-        column,
+        verticalPaddingColumn(children: [
+          headerTxt,
+          column,
+        ]),
       ]),
     );
   } // end build
