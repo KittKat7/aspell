@@ -19,30 +19,21 @@ class _OptionsPageState extends State<OptionsPage> {
   Widget build(BuildContext context) {
     var cycleColorBtn = CustomButton(
       onPressed: () {
-        cycleColor();
-        // appTheme.setColor(Colors.red);
-        // Provider.of<ThemeModel>(context, listen: false).cycleColor();
-        saveOptions();
+        AppOptions.cycleColor();
       },
       child: Text(getLang('btnCycleColor')),
     );
 
     var toggleModeBtn = CustomButton(
       onPressed: () {
-        cycleMode();
-        // appTheme.cycleThemeMode();
-        // Provider.of<ThemeModel>(context, listen: false).toggleMode();
-        saveOptions();
+        AppOptions.cycleMode();
       },
       child: Text(getLang('btnToggleColor')),
     );
 
     var resetBtn = CustomButton(
       onPressed: () {
-        resetOptions();
-        // Provider.of<ThemeModel>(context, listen: false).toggleMode();
-        saveOptions();
-        // used with universal html import, refresh app hopefuly?
+        AppOptions.resetOptions();
         html.window.location.reload();
       },
       child: Text(getLang('btnResetSettings')),

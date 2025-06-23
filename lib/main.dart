@@ -9,14 +9,10 @@ import 'pages/home_page.dart';
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   setLangMap(en_us);
-  await loadOptions();
+  await AppOptions.initialize();
+  AppOptions.applyTheme();
   await WordList.loadWords();
-  // runApp(ChangeNotifierProvider<ThemeModel>(
-  //     create: (context) => ThemeModel(),
-  //     child: const MyApp(),
-  //   )
-  // );
-  setAppThemeData();
+
   runApp(ThemedWidget(
     widget: const DefaultTextStyle(
       style: TextStyle(fontFamily: "Roboto"),

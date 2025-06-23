@@ -5,7 +5,6 @@ import '../classes/widgets.dart';
 import 'options_page.dart';
 import 'practice_page.dart';
 import '../helpers_gui.dart';
-import '../options.dart';
 import 'about_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,14 +28,7 @@ class _HomePageState extends State<HomePage> {
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
       // also add secret cyan color
-      title: GestureDetector(
-        onTap: () {
-          // Provider.of<ThemeModel>(context, listen: false).setColorCyan();
-          setColorCyan();
-          saveOptions();
-        },
-        child: styledTitle(),
-      ),
+      title: styledTitle(),
     );
 
     Widget headerTxt = styledTitle(scale: 5);

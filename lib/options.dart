@@ -5,10 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String title = "ASpeLl";
 const String picturePath = "assets/pictures/";
 
-bool isDarkMode = false;
-MaterialColor themeColor = Colors.amber;
-
-MaterialColor defColor = Colors.amber;
 List<MaterialColor> themeColorList = [
   Colors.red,
   Colors.orange,
@@ -16,74 +12,141 @@ List<MaterialColor> themeColorList = [
   Colors.green,
   Colors.blue,
   Colors.purple,
-  Colors.cyan
 ];
-Brightness mode = Brightness.light;
 
-void cycleMode() {
-  isDarkMode = !isDarkMode;
-  if (isDarkMode) {
-    appTheme.setDarkMode();
-  } else {
-    appTheme.setLightMode();
+/// Optionsclass
+/// A class that contains the options for the app
+/// bool? isDarkMode
+/// int themeColorIndex
+/// int speed
+/// int difficulty
+///
+class AppOptions {
+  static const speedRange = (1, 7);
+  static const difficultyRange = (3, 7);
+
+  static const _defDarkMode = 0;
+  static const _defThemeColorIndex = 0;
+  static const _defSpeed = 1;
+  static const _defDifficulty = 3;
+
+  static SharedPreferences? _instance;
+
+  static int _darkMode = _defDarkMode;
+
+  static int _themeColorIndex = _defThemeColorIndex;
+
+  static int _speed = _defSpeed;
+  static int get speed => _speed;
+  static set speed(int speed) {
+    _checkInit();
+    speed < speedRange.$1 ? speedRange.$1 : speed;
+    _speed = speed > speedRange.$2 ? speedRange.$2 : speed;
+    _saveOptions();
   }
-}
 
-void cycleColor() {
-  if (!themeColorList.contains(themeColor)) {
-    themeColor = themeColorList[0];
-    appTheme.setColor(themeColor);
-  } else {
-    int index = themeColorList.indexOf(themeColor) + 1;
-    themeColor =
-        themeColorList[index >= (themeColorList.length - 1) ? 0 : index];
-    appTheme.setColor(themeColor);
+  static int _difficulty = _defDifficulty;
+  static int get difficulty => _difficulty;
+  static set difficulty(int difficulty) {
+    _checkInit();
+    difficulty < difficultyRange.$1 ? difficultyRange.$1 : difficulty;
+    _difficulty =
+        difficulty > difficultyRange.$2 ? difficultyRange.$2 : difficulty;
+    _saveOptions();
   }
-  // int index = themeColorList.indexOf(themeColor) + 1;
-  // themeColor = themeColorList[index >= themeColorList.length ? 0 : index];
-  // appTheme.setColor(themeColor);
-} // end cycleColor
 
-void setColorCyan() {
-  themeColor = Colors.cyan;
-  appTheme.setColor(themeColor);
-} // end setColor
+  static Future<bool> initialize({
+    int darkMode = _defDarkMode,
+    int themeColor = _defThemeColorIndex,
+    int speed = _defSpeed,
+    int difficulty = _defDifficulty,
+  }) async {
+    // If the instance is null
+    if (_instance == null) {
+      try {
+        _instance = await SharedPreferences.getInstance();
+      } catch (e) {
+        return false;
+      }
+    }
 
-// Save the value to shared preferences
-Future<void> saveOptions() async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setBool("isDarkMode", isDarkMode);
-  prefs.setInt("themeColor", themeColorList.indexOf(themeColor));
-} // end saveOptions
+    // Load values or use default values
+    SharedPreferences prefs = _instance!;
+    _darkMode = prefs.getInt('darkMode') ?? _defDarkMode;
+    _themeColorIndex = prefs.getInt('colorIndex') ?? _defThemeColorIndex;
+    _speed = prefs.getInt('speed') ?? _defSpeed;
+    _difficulty = prefs.getInt('difficulty') ?? _defDifficulty;
 
-// Load the value from shared preferences
-Future<void> loadOptions() async {
-  final prefs = await SharedPreferences.getInstance();
-  isDarkMode = prefs.getBool("isDarkMode") == null
-      ? false
-      : prefs.getBool("isDarkMode")!;
-  int curColor =
-      prefs.getInt("themeColor") == null ? 0 : prefs.getInt("themeColor")!;
-  themeColor = themeColorList[curColor];
-} // end loadOptions
+    return true;
+  }
 
-void loadDefaults() {
-  isDarkMode = false;
-  themeColor = Colors.red;
-} // end loadDefaults
+  static void _checkInit() {
+    if (_instance == null) {
+      throw Exception('AppOptions not initiated!!!');
+    }
+  }
 
-Future<void> resetOptions() async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.clear();
-  loadDefaults();
-} // end resetOptions
+  static void _saveOptions() {
+    _checkInit();
+    _instance!.setInt('darkMode', _darkMode);
+    _instance!.setInt('colorIndex', _themeColorIndex);
+    _instance!.setInt('speed', _speed);
+    _instance!.setInt('difficulty', _difficulty);
+  }
 
-void setAppThemeData() {
-  appTheme.setColor(themeColor);
+  static void applyTheme() {
+    _checkInit();
+    switch (_darkMode) {
+      case 0:
+        appTheme.setSystemMode();
+        break;
+      case 1:
+        appTheme.setLightMode();
+        break;
+      case 2:
+        appTheme.setDarkMode();
+        break;
+    }
+    appTheme.setColor(themeColorList[_themeColorIndex]);
+  }
 
-  if (isDarkMode) {
-    appTheme.setDarkMode();
-  } else {
-    appTheme.setLightMode();
+  /// Cycle the brightness mode
+  /// System -> Light
+  /// Light -> Dark
+  /// Dark -> System
+  static void cycleMode() {
+    _checkInit();
+    switch (_darkMode) {
+      case 0:
+        _darkMode = 1;
+        appTheme.setLightMode();
+        break;
+      case 1:
+        _darkMode = 2;
+        appTheme.setDarkMode();
+        break;
+      case 2:
+        _darkMode = 0;
+        appTheme.setSystemMode();
+        break;
+    }
+    _saveOptions();
+  }
+
+  static void cycleColor() {
+    _checkInit();
+    _themeColorIndex = (++_themeColorIndex) % themeColorList.length;
+    appTheme.setColor(themeColorList[_themeColorIndex]);
+    _saveOptions();
+  }
+
+  static void loadDefaults() {
+    _checkInit();
+    initialize();
+  }
+
+  static void resetOptions() {
+    _checkInit();
+    _instance!.clear();
   }
 }

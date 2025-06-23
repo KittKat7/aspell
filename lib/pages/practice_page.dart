@@ -177,9 +177,9 @@ class _SpellPageState extends State<SpellPage> {
           flex: 2,
           child: Slider(
             value: wordLength.toDouble(),
-            min: 1,
+            min: 3,
             max: 7,
-            divisions: 6,
+            divisions: 4,
             onChanged: (double value) {
               setState(() {
                 int valueInt = value.toInt();
