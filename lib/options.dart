@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:kittkatflutterlibrary/lang/kkfl_lang.dart';
 import 'package:kittkatflutterlibrary/theming/src/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String title = "ASpeLl";
 const String picturePath = "assets/pictures/";
 
-List<MaterialColor> themeColorList = [
+List<MaterialColor> _themeColorList = [
   Colors.red,
   Colors.orange,
   Colors.yellow,
   Colors.green,
   Colors.blue,
   Colors.purple,
+];
+
+List<String> _themeColorNameList = [
+  getLang('strRed'),
+  getLang('strOrange'),
+  getLang('strYellow'),
+  getLang('strGreen'),
+  getLang('strBlue'),
+  getLang('strPurple'),
 ];
 
 /// Optionsclass
@@ -33,8 +42,21 @@ class AppOptions {
   static SharedPreferences? _instance;
 
   static int _darkMode = _defDarkMode;
+  static String get modeName {
+    switch (_darkMode) {
+      case 0:
+        return getLang('strSystem');
+      case 1:
+        return getLang('strLight');
+      case 2:
+        return getLang('strDark');
+      default:
+        return getLang('strUnknown');
+    }
+  }
 
   static int _themeColorIndex = _defThemeColorIndex;
+  static String get colorName => _themeColorNameList[_themeColorIndex];
 
   static int _speed = _defSpeed;
   static int get speed => _speed;
@@ -107,7 +129,7 @@ class AppOptions {
         appTheme.setDarkMode();
         break;
     }
-    appTheme.setColor(themeColorList[_themeColorIndex]);
+    appTheme.setColor(_themeColorList[_themeColorIndex]);
   }
 
   /// Cycle the brightness mode
@@ -135,8 +157,8 @@ class AppOptions {
 
   static void cycleColor() {
     _checkInit();
-    _themeColorIndex = (++_themeColorIndex) % themeColorList.length;
-    appTheme.setColor(themeColorList[_themeColorIndex]);
+    _themeColorIndex = (++_themeColorIndex) % _themeColorList.length;
+    appTheme.setColor(_themeColorList[_themeColorIndex]);
     _saveOptions();
   }
 

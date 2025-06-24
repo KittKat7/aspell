@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:aspell/classes/wordlist.dart';
 import 'package:flutter/material.dart';
 // custom
-import 'package:aspell/options.dart';
 import 'package:aspell/helpers_gui.dart';
 import 'package:aspell/classes/widgets.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
@@ -230,7 +229,8 @@ class _SpellPageState extends State<SpellPage> {
   }
 
   void helpBtnPress(BuildContext context) {
-    Navigator.push(context, genRoute(const SpellHelpPage(title: title)));
+    Navigator.push(
+        context, genRoute(SpellHelpPage(title: getLang('titleApp'))));
   }
 
   void signAgainBtnPress() => _startTimer(word);

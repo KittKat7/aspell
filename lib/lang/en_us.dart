@@ -1,32 +1,41 @@
 // ignore: constant_identifier_names
 const Map<String, String> en_us = {
   // Title
-  "titleApp": "ASPELL",
+  'titleApp': 'ASPELL',
 
-  "btnStartPractice": "Start Practice",
-  "btnStartLearning": "Start Learning",
-  "btnSettings": "Settings",
-  "btnAbout": "About",
-  "btnCycleColor": "Cycle Color",
-  "btnToggleColor": "Toggle Color",
-  "btnResetSettings": "Reset",
-  "btnSignThis": "Sign This",
-  "btnNewWord": "New",
-  "btnSignAgain": "Again",
-  "btnConfirm": "Confirm",
+  'btnStartPractice': 'Start Practice',
+  'btnStartLearning': 'Start Learning',
+  'btnSettings': 'Settings',
+  'btnAbout': 'About',
+  'btnCycleColor': 'Color (\${0})',
+  'btnToggleColor': 'Theme (\${0})',
+  'btnResetSettings': 'Reset',
+  'btnSignThis': 'Sign This',
+  'btnNewWord': 'New',
+  'btnSignAgain': 'Again',
+  'btnConfirm': 'Confirm',
 
-  "pmtEnterText": "Enter Text",
-  "pmtSigningSpeed": "Speed: \${0}",
-  "pmtWordLength": "Length: \${0}",
-  "pmtSigningInfoLine": "Word: \${0} - Score: \${1}",
+  'pmtEnterText': 'Enter Text',
+  'pmtSigningSpeed': 'Speed: \${0}',
+  'pmtWordLength': 'Length: \${0}',
+  'pmtSigningInfoLine': 'Word: \${0} - Score: \${1}',
 
-  "strUnknown": "UNKNOWN",
+  'strUnknown': 'UNKNOWN',
+  'strRed': 'Red',
+  'strOrange': 'Orange',
+  'strYellow': 'Yellow',
+  'strGreen': 'Green',
+  'strBlue': 'Blue',
+  'strPurple': 'Purple',
+  'strSystem': 'System',
+  'strLight': 'Light',
+  'strDark': 'Dark',
 
-  "txtOptions": """
+  'txtOptions': '''
 The settings here control the GUI settings for the whole app. The **Cycle Color** option cycles through a list of seven colors (red, orange, yellow, green, blue, and purple). The **Toggle Mode** option toggles between light and dark mode. The **Reset** option resets the settings to defaults. All settings options are saved automatically.
-""",
+''',
 
-  "txtSpellingHelp": """
+  'txtSpellingHelp': '''
 ___
 ## Intro
 Welcome to the help page for the spelling aspect of this app. This page was very heavily inspired by the webpage [asl.ms](https://asl.ms) by Dr. Bill Vicars. (You should definitally go check it out!!!) And the concept of the spelling page here is very similer.
@@ -47,16 +56,16 @@ This mode allows you to see how a word would be spelled in sign language (Note: 
 - **Sign Again Button:**
 This will replay the spelling for the current word.
 - **Sign This Button:** This will show you how to sign the spelling for the word currently in the text box.
-""",
+''',
 
-  "txtAbout": """
+  'txtAbout': '''
 ___
 
 ## **What is ASpeLl?**
 
 ASpeLl is an app designed to help new Americal Sign Language (ASL) signers practice their signing and comprehension of the alphabet/finger spelling. This app is **NOT** designed to be a replacement for an ASL class. ASL classes contain a lot of very useful information (A lot more signs, signing etiquette and grammar, information about deaf culture, etc) and you are highly encouraged to take an ASL class. This app is designed to be a practice resource.
 
-This app takes heavy inspiration from the website [asl.ms](https://asl.ms). This website is a very useful resource for new signers who want to practice their fingerspelling comprehension. ASpeLl intends to take the functionality of this amazing resource and expand apon it with a more phone optimized interface, and adding additional features like "Sign This".
+This app takes heavy inspiration from the website [asl.ms](https://asl.ms). This website is a very useful resource for new signers who want to practice their fingerspelling comprehension. ASpeLl intends to take the functionality of this amazing resource and expand apon it with a more phone optimized interface, and adding additional features like 'Sign This'.
 
 ## **Project Author**
 
@@ -67,5 +76,5 @@ This app takes heavy inspiration from the website [asl.ms](https://asl.ms). This
 
 Avery is a Computer Science major and American Sign Language minor studying at Appalachian State University, expecting to graduate in Spring 2026. Avery spends much of their free time programming apps like this, trying to find ways to create useful software to help people in their daily lives.
 
-"""
+'''
 };

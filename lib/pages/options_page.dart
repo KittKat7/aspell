@@ -19,16 +19,16 @@ class _OptionsPageState extends State<OptionsPage> {
   Widget build(BuildContext context) {
     var cycleColorBtn = CustomButton(
       onPressed: () {
-        AppOptions.cycleColor();
+        setState(() => AppOptions.cycleColor());
       },
-      child: Text(getLang('btnCycleColor')),
+      child: Text(getLang('btnCycleColor', [AppOptions.colorName])),
     );
 
     var toggleModeBtn = CustomButton(
       onPressed: () {
-        AppOptions.cycleMode();
+        setState(() => AppOptions.cycleMode());
       },
-      child: Text(getLang('btnToggleColor')),
+      child: Text(getLang('btnToggleColor', [AppOptions.modeName])),
     );
 
     var resetBtn = CustomButton(
@@ -39,12 +39,12 @@ class _OptionsPageState extends State<OptionsPage> {
       child: Text(getLang('btnResetSettings')),
     );
 
-    var titleText = Text(
-      getLang('titleApp'),
-      textAlign: TextAlign.center,
-      textScaler: TextScaler.linear(2),
-      style: const TextStyle(fontWeight: FontWeight.bold),
-    );
+    // var titleText = Text(
+    //   getLang('titleApp'),
+    //   textAlign: TextAlign.center,
+    //   textScaler: TextScaler.linear(2),
+    //   style: const TextStyle(fontWeight: FontWeight.bold),
+    // );
 
     var row1 = Row(
       children: [
@@ -64,7 +64,7 @@ class _OptionsPageState extends State<OptionsPage> {
 
     var children = <Widget>[
       verticalPaddingColumn(children: [
-        titleText,
+        styledTitle(scale: 3),
         Marked(getLang('txtOptions')),
         // readFileWidget('assets/texts/options.md'),
         row1,
