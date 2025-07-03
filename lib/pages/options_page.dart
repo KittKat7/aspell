@@ -1,10 +1,10 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 // used to hopefully reload app?
+import 'package:aspell/classes/letter_signs.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 import 'package:universal_html/html.dart' as html;
-import 'package:aspell/options.dart';
+import 'package:aspell/classes/options.dart';
 import 'package:flutter/material.dart';
-// custom
 import '../classes/widgets.dart';
 
 class OptionsPage extends StatefulWidget {
@@ -31,34 +31,70 @@ class _OptionsPageState extends State<OptionsPage> {
       child: Text(getLang('btnToggleColor', [AppOptions.modeName])),
     );
 
+    var chooseLetterSetBtn = CustomButton(
+      onPressed: () {
+        // make a list of buttons
+        List<Widget> buttons = [];
+        for (String letterSet in Letters.letterSets) {
+          Widget btn = CustomButton(
+            onPressed: () {
+              setState(() => AppOptions.letterSet = letterSet);
+              Navigator.pop(context);
+            },
+            child: Text(letterSet),
+          );
+          buttons.add(Row(children: [
+            Expanded(flex: 1, child: verticalPadding(child: btn))
+          ]));
+        }
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Marked(getLang('hdrChooseSignSet')),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: buttons,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(getLang('btnCancel')),
+              )
+            ],
+          ),
+        );
+      },
+      child: Text(
+          getLang('btnChooseLetterSet', [Letters.currentLetters!.letterSet])),
+    );
+
     var resetBtn = CustomButton(
       onPressed: () {
-        AppOptions.resetOptions();
-        html.window.location.reload();
+        setState(() {
+          AppOptions.resetOptions();
+          AppOptions.loadDefaults();
+        });
+        if (platformIsWeb) {
+          html.window.location.reload();
+        }
       },
       child: Text(getLang('btnResetSettings')),
     );
-
-    // var titleText = Text(
-    //   getLang('titleApp'),
-    //   textAlign: TextAlign.center,
-    //   textScaler: TextScaler.linear(2),
-    //   style: const TextStyle(fontWeight: FontWeight.bold),
-    // );
 
     var row1 = Row(
       children: [
         Expanded(flex: 7, child: cycleColorBtn),
         const Expanded(flex: 1, child: SizedBox()),
-        Expanded(flex: 7, child: toggleModeBtn)
+        Expanded(flex: 7, child: toggleModeBtn),
       ],
     );
 
     var row2 = Row(
       children: [
-        Expanded(flex: 7, child: resetBtn),
+        Expanded(flex: 7, child: chooseLetterSetBtn),
         const Expanded(flex: 1, child: SizedBox()),
-        const Expanded(flex: 7, child: SizedBox())
+        Expanded(flex: 7, child: resetBtn),
       ],
     );
 

@@ -9,11 +9,15 @@ const Map<String, String> en_us = {
   'btnAbout': 'About',
   'btnCycleColor': 'Color (\${0})',
   'btnToggleColor': 'Theme (\${0})',
+  'btnChooseLetterSet': 'Letters (\${0})',
   'btnResetSettings': 'Reset',
   'btnSignThis': 'Sign This',
   'btnNewWord': 'New',
   'btnSignAgain': 'Again',
   'btnConfirm': 'Confirm',
+  'btnCancel': 'Cancel',
+
+  'hdrChooseSignSet': 'Choose Letter Set',
 
   'pmtEnterText': 'Enter Text',
   'pmtSigningSpeed': 'Speed: \${0}',

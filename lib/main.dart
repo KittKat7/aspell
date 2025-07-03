@@ -1,17 +1,18 @@
+import 'package:aspell/classes/letter_signs.dart';
 import 'package:aspell/classes/wordlist.dart';
 import 'package:aspell/lang/en_us.dart';
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 // custom
-import 'options.dart';
+import 'classes/options.dart';
 import 'pages/home_page.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   setLangMap(en_us);
   await AppOptions.initialize();
-  AppOptions.applyTheme();
   await WordList.loadWords();
+  Letters.currentLetters = Letters(letterSet: AppOptions.letterSet);
 
   runApp(ThemedWidget(
     widget: const DefaultTextStyle(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:aspell/classes/letter_signs.dart';
 import 'package:aspell/classes/wordlist.dart';
 import 'package:flutter/material.dart';
 // custom
@@ -11,7 +12,7 @@ double signSpeed = 1;
 int wordLength = 5;
 int score = 0;
 String wordLast = "";
-int _lastLetter = -1;
+String _lastLetter = "";
 bool lastOffset = false;
 String correct = "";
 
@@ -30,13 +31,13 @@ class _SpellPageState extends State<SpellPage> {
   List<String> wordList = WordList.getWordList(maxLength: wordLength);
 
   int _index = 0;
-  int imageID = 0;
+  String letter = "";
   Timer? _timer;
 
   void _startTimer(String wrd) {
     _stopTimer();
     _index = 0;
-    _lastLetter = -1;
+    _lastLetter = "";
     _timer = Timer.periodic(Duration(milliseconds: (1000 / signSpeed).round()),
         (timer) {
       setState(() {
@@ -44,11 +45,11 @@ class _SpellPageState extends State<SpellPage> {
         //  _index in the word
         if (_index < wrd.length) {
           bool offset = false;
-          imageID =
-              wrd.codeUnitAt(_index) == 32 ? -1 : wrd.codeUnitAt(_index) - 65;
-          Image? image = imageID == -1 ? null : images[imageID];
+          letter = wrd[_index];
+          Image? image =
+              letter.isEmpty ? null : Letters.currentLetters!.letters[letter];
 
-          if (_lastLetter == imageID && !lastOffset) {
+          if (_lastLetter == letter && !lastOffset) {
             offset = true;
             lastOffset = true;
           } else {
@@ -59,7 +60,7 @@ class _SpellPageState extends State<SpellPage> {
             signBox = SignBox(image: image, offset: offset);
           });
 
-          _lastLetter = imageID;
+          _lastLetter = letter;
           _index++;
         }
         // else
@@ -82,16 +83,6 @@ class _SpellPageState extends State<SpellPage> {
     word =
         WordList.validateWord(wordList[getRandom().nextInt(wordList.length)]);
   }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    for (int i = 0; i < images.length; i++) {
-      precacheImage(images[i].image, context);
-    }
-    precacheImage(check!.image, context);
-    precacheImage(cross!.image, context);
-  } // end didChangeDependencies
 
   @override
   Widget build(BuildContext context) {
@@ -257,12 +248,12 @@ class _SpellPageState extends State<SpellPage> {
         if (word != wordLast) score++;
         wordLast = word;
         correct = "Correct";
-        signBox = SignBox(image: check);
+        signBox = SignBox(image: Letters.currentLetters!.check);
       });
     } else {
       setState(() {
         correct = "Incorrect";
-        signBox = SignBox(image: cross);
+        signBox = SignBox(image: Letters.currentLetters!.cross);
       });
     } // end if / else
   } // end build

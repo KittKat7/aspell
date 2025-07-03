@@ -4,7 +4,6 @@ import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 import '../classes/widgets.dart';
 import 'options_page.dart';
 import 'practice_page.dart';
-import '../helpers_gui.dart';
 import 'about_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +17,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    loadLetters();
   }
 
   @override

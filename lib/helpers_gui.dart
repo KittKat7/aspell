@@ -1,8 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-
-import 'package:aspell/options.dart';
 
 /* ========== HELPERS ========== */
 // vars
@@ -11,12 +8,6 @@ double paddingH = 0.05; // the amount of verticle padding on each side
 double paddedW = 0; // the width of the available screen (excluding padding)
 double paddedH = 0; // the height of the available screen (excluding padding)
 double scale = 1; // not sure
-
-var rBundle = rootBundle;
-
-List<Image> images = [];
-Image? check;
-Image? cross;
 
 Random _random = Random();
 
@@ -78,18 +69,3 @@ Widget signingBox(BuildContext context) {
     )),
   );
 }
-
-List<Image> loadLetters(/*BuildContext context*/) {
-  List<String> strings = [];
-  List<Image> imagess = [];
-  for (int i = 0; i < 26; i++) {
-    strings
-        .add("${picturePath}letters/avery_${String.fromCharCode(97 + i)}.png");
-    imagess.add(Image.asset(strings[i]));
-    //precacheImage(AssetImage(strings[i]), context);
-  } // end for
-  images = imagess;
-  check = Image.asset("assets/pictures/check.png");
-  cross = Image.asset("assets/pictures/cross.png");
-  return imagess;
-} // end getLetters
