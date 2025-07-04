@@ -19,9 +19,16 @@ class Letters {
     for (int i = 'A'.codeUnitAt(0); i <= 'Z'.codeUnitAt(0); i++) {
       letters[String.fromCharCode(i)] = Image.asset(
           '$picturePath$letterPath$letterSet/${letterSet}_${String.fromCharCode(i).toLowerCase()}.png');
-      //precacheImage(AssetImage(strings[i]), context);
     }
     check = Image.asset("assets/pictures/check.png");
     cross = Image.asset("assets/pictures/cross.png");
+  }
+
+  void cacheImages(BuildContext context) {
+    for (String l in letters.keys) {
+      precacheImage(letters[l]!.image, context);
+    }
+    precacheImage(check.image, context);
+    precacheImage(cross.image, context);
   }
 }

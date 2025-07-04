@@ -35,6 +35,11 @@ const Map<String, String> en_us = {
   'strLight': 'Light',
   'strDark': 'Dark',
 
+  'txtLearningPage': '''
+Below, you will find all the letters of the alphabet and their corrosponding hand signs. You can use
+this page if you do not know the sign for a specific letter.
+''',
+
   'txtOptions': '''
 The settings here control the GUI settings for the whole app. The **Cycle Color** option cycles through a list of seven colors (red, orange, yellow, green, blue, and purple). The **Toggle Mode** option toggles between light and dark mode. The **Reset** option resets the settings to defaults. All settings options are saved automatically.
 ''',

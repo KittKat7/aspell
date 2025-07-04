@@ -1,3 +1,4 @@
+import 'package:aspell/pages/learning_page.dart';
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 
@@ -40,8 +41,7 @@ class _HomePageState extends State<HomePage> {
     // Learning page button
     var learnBtn = CustomButton(
       onPressed: () {
-        print("TODO"); // TODO
-        // Navigator.push(context, genRoute(const SpellPage()));
+        Navigator.push(context, genRoute(const LearningPage()));
       },
       child: Text(getLang('btnStartLearning')),
     );

@@ -39,6 +39,7 @@ class _OptionsPageState extends State<OptionsPage> {
           Widget btn = CustomButton(
             onPressed: () {
               setState(() => AppOptions.letterSet = letterSet);
+              Letters.currentLetters!.cacheImages(context);
               Navigator.pop(context);
             },
             child: Text(letterSet),
